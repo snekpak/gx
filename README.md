@@ -1,0 +1,2 @@
+# gx
+snek generator package
