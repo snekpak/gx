@@ -8,7 +8,7 @@ from ..dict.adjs import all_adjs
 
 from ..dict.const import *
 
-from keeji.utils.__ import info, warn, silly, trace, error, set_printer_level, get_printer_level
+from snek.utils.__ import info, warn, silly, trace, error, set_printer_level, get_printer_level
 
 
 #----------------------------------------------#
@@ -97,7 +97,7 @@ def conjugate_verb(verb,tense='', pronoun=''):
 
   
   res=tense_list.get(tense,verb) #+f" [{tense}]"
-  trace(f"..tense > {pronoun} | {verb} | {tense} => {res}")
+  #trace(f"..tense > {pronoun} | {verb} | {tense} => {res}")
     
   return res
 
@@ -167,18 +167,12 @@ def pronoun_agreement(pronoun, **kwargs):
   own = gmap.get('own','')
   own_obj = gmap.get('obj','')
   own_self = gmap.get('self','')
-
-  error(repr(own_self),repr(own))
   
   if own_self == '':
-    
     if own.endswith('s'):
       own = own[:-1]
-      
     own_self = f"{own}self"          
-    
-  #info(f"agree ->  self: {own_self} own: {own}")
-                
+            
   if own_obj == 'plural':
     own_obj = own + "s"
     
@@ -186,7 +180,6 @@ def pronoun_agreement(pronoun, **kwargs):
     ref = kwargs.get('noun','')
     own_obj = "the {ref}'s"
     
-  #silly(f"agree? [{pronoun}]->  {own} {own_obj} {own_self}")  
   return own,own_obj,own_self
 
 
@@ -210,22 +203,16 @@ def gen_entity(actor_type='',ref=''):
     
   if actor_type == '':
     actor_type=actor_choice
-
-  
   if actor_type=='self':
-    
     actor='self'
     pronoun='self'
-    
   else:
-    
     if actor_type == 'group':
       pronoun='they'
       this_list=all_nouns
     elif actor_type in ['object']:
       pronoun='it'
       this_list=all_nouns
-      
     else:
       actor_type='person'
       pronoun = random.choice(['he','she']) #'xe'
@@ -245,7 +232,6 @@ def gen_entity(actor_type='',ref=''):
         actor = f"{actor}es"     
       else: 
         actor = f"{actor}s"
-      
       
   trace(f"random chose [{actor}] {pronoun} {actor_type} [{actor_choice}]")    
   # if actor_type=='self':
